@@ -14,18 +14,20 @@ afterAll(async () => {
 });
 
 /* Testing the API endpoints */
-describe("GET /api/users", () => {
+describe("/api/users", () => {
     let cachedUser = null;
     test("should return all users", async () => {
         const res = await request(app).get("/api/users");
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
+        cachedUser = res.body[0];
     });
 
     test("should return a user", async () => {
-        const res = await request(app).get("/api/users/66d43af73636b85b444e9457");
+        const res = await request(app).get(`/api/users/${cachedUser._id}`);
         expect(res.status).toBe(200);
-        expect(res.body._id).toEqual("66d43af73636b85b444e9457");
+        expect(res.body).toEqual(cachedUser);
+        cachedUser = null;
     });
 
     test("should create a user", async () => {
@@ -52,5 +54,5 @@ describe("GET /api/users", () => {
         expect(res.body._id).toEqual(cachedUser._id);
         cachedUser = null;
     });
-});
+}, 10000);
 
