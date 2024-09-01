@@ -1,41 +1,45 @@
-# Basic CRUD API for users with Express
+# Basic CRUD API for Users with Express
 
 ## Description
-This API is a simple CRUD API for users. It was created to be used in a jest lib test.
+This API is a simple CRUD API for users, created to be used with Jest library tests.
 
-## How to use
-To use this API, you need to have Node.js installed in your machine. After that, you can clone this repository and run the following commands:
-
-if don't have pnpm installed, run the following command:
+## How to Use
+**To use this API, you need to have Node.js installed on your machine. Then, follow these steps:**
 
 ```bash
-npm install -g pnpm
-```
-
-if you have pnpm installed, run the following commands:
-
-```bash
+git clone https://github.com/aethrox/users-api.git
 cd users-api
 pnpm install
-pnpm start or pnpm dev (nodemon)
+```
+
+**After that, create a MongoDB database at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a `.env` file in the root of the project with the following content:**
+
+```env
+MONGO_URI=your_mongodb_uri
+```
+
+**Then, you can start the server with the following command:**
+
+```bash
+pnpm start # or pnpm dev (nodemon)
 ```
 
 ## Tests
-To run the tests, you can run the following command:
+**To run the tests, use the following command:**
 
 ```bash
 pnpm test
 ```
 
 ## Endpoints
-- GET /users
-- GET /users/:id
-- POST /users
-- PUT /users/:id
-- DELETE /users/:id
+- **GET /users**: Get all users.
+- **GET /users/:id**: Get a user by ID.
+- **POST /users**: Create a new user.
+- **PUT /users/:id**: Update a user.
+- **DELETE /users/:id**: Delete a user.
 
-## Techs
-- Node.js
+## Technologies
+- Node.js (ES6+)
 - Express
 - Jest
 - Supertest
