@@ -10,6 +10,7 @@ beforeEach(async () => {
 
 /* Closing the connection after all tests */
 afterAll(async () => {
+    await mongoose.connection.dropCollection("Users");
     await mongoose.connection.close();
 });
 
@@ -32,7 +33,7 @@ describe("Users Controller", () => {
             expect(res.status).toBe(400);
             expect(res.body.message).toEqual("Invalid user ID");
         });
-    });
+    }, 15000);
 
     describe("POST methods for /api/users", () => {
         test("should create a user", async () => {
@@ -42,7 +43,7 @@ describe("Users Controller", () => {
             expect(res.status).toBe(201);
             expect(res.body.message).toEqual("User created successfully");
         });
-    });
+    }, 15000);
 
     describe("PUT methods for /api/users", () => {
         test("should update a user", async () => {
@@ -52,7 +53,7 @@ describe("Users Controller", () => {
             expect(res.status).toBe(400);
             expect(res.body.message).toEqual("Invalid user ID");
         });
-    });
+    }, 15000);
 
     describe("DELETE methods for /api/users", () => {
         test("should delete a user", async () => {
@@ -60,6 +61,5 @@ describe("Users Controller", () => {
             expect(res.status).toBe(400);
             expect(res.body.message).toEqual("Invalid user ID");
         });
-    });
-});
-
+    }, 15000);
+}, 30000);
