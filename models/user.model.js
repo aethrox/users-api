@@ -14,6 +14,6 @@ const UserSchema = new Schema({
         type: Number,
         required: true
     }
-});
+}, { collection: "Users" });
 
 export default model("User", UserSchema);

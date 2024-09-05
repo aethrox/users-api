@@ -3,10 +3,14 @@ import morgan from "morgan";
 import fs from "fs";
 import path from "path";
 import UserRoutes from "./routes/user.route.js";
+import swaggerUI from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
 
 const app = express();
 
 const accessLogStream = fs.createWriteStream(path.join(path.resolve(), "access.log"), { flags: "a" });
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCss: ".swagger-ui .topbar { display: none }", }));
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
