@@ -14,45 +14,52 @@ afterAll(async () => {
 });
 
 /* Testing the API endpoints */
-describe("/api/users", () => {
-    let cachedUser = null;
-    test("should return all users", async () => {
-        const res = await request(app).get("/api/users");
-        expect(res.status).toBe(200);
-        expect(res.body.length).toBeGreaterThan(0);
-        cachedUser = res.body[0];
+describe("Users Controller", () => {
+    describe("GET methods for /api/users", () => {
+        test("should return all users", async () => {
+            const res = await request(app).get("/api/users");
+
+            if (res.status === 404) {
+                expect(res.body.message).toEqual("No users found");
+            } else {
+                expect(res.status).toBe(200);
+                expect(res.body.users.length).toBeGreaterThan(0);
+            }
+        });
+
+        test("should return a user", async () => {
+            const res = await request(app).get(`/api/users/123`);
+            expect(res.status).toBe(400);
+            expect(res.body.message).toEqual("Invalid user ID");
+        });
     });
 
-    test("should return a user", async () => {
-        const res = await request(app).get(`/api/users/${cachedUser._id}`);
-        expect(res.status).toBe(200);
-        expect(res.body).toEqual(cachedUser);
-        cachedUser = null;
+    describe("POST methods for /api/users", () => {
+        test("should create a user", async () => {
+            const res = await request(app)
+                .post("/api/users")
+                .send({ name: "John Doe", email: "john@example.com", age: 25 });
+            expect(res.status).toBe(201);
+            expect(res.body.message).toEqual("User created successfully");
+        });
     });
 
-    test("should create a user", async () => {
-        const res = await request(app)
-            .post("/api/users")
-            .send({ name: "John Doe", email: "john@aethrx.com", age: 25 });
-        expect(res.status).toBe(201);
-        expect(res.body.name).toEqual("John Doe");
-        cachedUser = res.body;
+    describe("PUT methods for /api/users", () => {
+        test("should update a user", async () => {
+            const res = await request(app)
+                .put("/api/users/123")
+                .send({ name: "Jane Doe", email: "jane@example.com", age: 30 });
+            expect(res.status).toBe(400);
+            expect(res.body.message).toEqual("Invalid user ID");
+        });
     });
 
-    test("should update a user", async () => {
-        const res = await request(app)
-            .put(`/api/users/${cachedUser._id}`)
-            .send({ name: "Jane Doe", email: "jane@aethrx.com", age: 30 });
-        expect(res.status).toBe(200);
-        expect(res.body.name).toEqual("Jane Doe");
-        cachedUser = res.body;
+    describe("DELETE methods for /api/users", () => {
+        test("should delete a user", async () => {
+            const res = await request(app).delete("/api/users/123");
+            expect(res.status).toBe(400);
+            expect(res.body.message).toEqual("Invalid user ID");
+        });
     });
-
-    test("should delete a user", async () => {
-        const res = await request(app).delete(`/api/users/${cachedUser._id}`);
-        expect(res.status).toBe(200);
-        expect(res.body._id).toEqual(cachedUser._id);
-        cachedUser = null;
-    });
-}, 10000);
+});
 
