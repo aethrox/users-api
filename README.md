@@ -33,35 +33,33 @@ Follow these steps to set up and run the API:
    ```bash
    npm start       # For normal start
    # or
-   npm dev         # For development mode with nodemon
+   npm run dev         # For development mode with nodemon
    ```
 
-## How to Use with Docker
-To run the API in a Docker container:
+## How to Use with Docker Compose
+To run the API in a Docker Compose environment:
 
-1. **Ensure Docker is Installed**: Make sure Docker is installed and running on your machine.
+1. **Ensure Docker Compose is Installed**: Make sure Docker Compose is installed and running on your machine.
 
-2. **Create MongoDB Database**:
-   - Set up a MongoDB database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-   - Update the `.env` file in the root of the project with your MongoDB URI.
-
-3. **Build the Docker Image**:
+2. **Build and Run the Docker Compose Services**:
    ```bash
-   docker build -t users-api .
+   docker-compose up -d
    ```
+   - The `-d` flag runs the services in detached mode.
 
-4. **Run the Docker Container**:
+3. **Access the API**:
+   - The API will be accessible at `http://localhost:8080`.
+
+4. **Stop the Docker Compose Services**:
    ```bash
-   docker run -d -p 8080:1000 users-api
+   docker-compose down
    ```
-   - The `-d` flag runs the container in detached mode.
-   - The `-p` flag maps the container port (`1000`) to the host port (`8080`).
 
 ## Running Tests
 To run the tests for the API, use the following command:
 
 ```bash
-npm test
+npm run test
 ```
 
 ## API Endpoints
