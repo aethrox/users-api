@@ -1,0 +1,18 @@
+services:
+  express:
+    build: .
+    ports:
+      - "8080:1000"
+    networks:
+      - api-network
+      - mongo-network
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-network
+
+networks:
+  api-network: {}
+  mongo-network: {}

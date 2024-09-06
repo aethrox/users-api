@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Ortam değişkenlerini ayarlamak için bir .env dosyası kullanılması önerilir.
-# ENV MONGO_URI=<your-mongo-uri>
+ENV MONGO_URI=mongodb://mongo:27017/UsersDB
 
 # Uygulamanın dinleyeceği portu açık hale getiriyoruz.
 EXPOSE 8080
